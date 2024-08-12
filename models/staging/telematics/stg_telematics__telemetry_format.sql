@@ -1,6 +1,6 @@
 select
     safe_cast(substr(serialnumber, 2, length(datetime)) as integer) as vehicleid,
-    datetime as timestamp,
+    timestamp(datetime) as timestamp,
     gpslongitude,
     gpslatitude,
     speedradar_km_h as speedkmh,
