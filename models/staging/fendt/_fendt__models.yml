@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: stg_fendt__telemetry_gps_format
+    description: "Model representing the movement of farm machines at specific timestamps from Fendt manufacturer telemetry."
+    columns:
+      - name: vehicleid
+        description: "Unique identifier for the farm machine, derived from machineid."
+        data_type: "INTEGER"
+
+      - name: timestamp
+        description: "Timestamp of the machine's movement, derived from the route.t field."
+        data_type: "TIMESTAMP"
+
+      - name: gpslongitude
+        description: "Longitude coordinate of the machine's location, derived from the route.lng field."
+        data_type: "FLOAT64"
+
+      - name: gpslatitude
+        description: "Latitude coordinate of the machine's location, derived from the route.lat field."
+        data_type: "FLOAT64"
+    meta:
+      tags: ["telemetry", "gps tracking", "fendt"]
+
+  - name: stg_fendt__telemetry_format
+    description: "Flatten telemetry data for Fendt farm machines, including speed, working hours, engine RPM, and outdoor temperature at specific timestamps."
+    columns:
+      - name: vehicleid
+        description: "Unique identifier for the farm machine, derived from machineid."
+        data_type: "INTEGER"
+
+      - name: timestamp
+        description: "Timestamp of the recorded telemetry data."
+        data_type: "TIMESTAMP"
+
+      - name: speedkmh
+        description: "The speed of the vehicle in kilometers per hour, derived from the 'WheelBasedVehicleSpeed' type."
+        data_type: "FLOAT64"
+
+      - name: totalworkinghours
+        description: "Total working hours of the vehicle, derived from the 'TOTAL_VEHICLE_HOURS' type."
+        data_type: "FLOAT64"
+
+      - name: enginerpm
+        description: "Engine RPM (revolutions per minute) of the vehicle, derived from the 'EngineSpeed' type."
+        data_type: "FLOAT64"
+
+      - name: outdoortempc
+        description: "Outdoor temperature in Celsius, derived from the 'OutdoorTemp' type."
+        data_type: "FLOAT64"
+    meta:
+      tags: ["telemetry", "farm machine", "fendt"]
+

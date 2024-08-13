@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: stg_telematics__telemetry_format
+    description: "Telemetry data for vehicles, including GPS location, speed, working hours, engine RPM, and outdoor temperature at specific timestamps from Telematics manufacturer telemetry."
+    columns:
+      - name: vehicleid
+        description: "Unique identifier for the vehicle, derived from the serial number."
+        data_type: "INTEGER"
+
+      - name: timestamp
+        description: "Timestamp of the recorded telemetry data."
+        data_type: "TIMESTAMP"
+
+      - name: gpslongitude
+        description: "Longitude coordinate of the vehicle's location."
+        data_type: "FLOAT64"
+
+      - name: gpslatitude
+        description: "Latitude coordinate of the vehicle's location."
+        data_type: "FLOAT64"
+
+      - name: speedkmh
+        description: "Vehicle speed in kilometers per hour, measured by radar."
+        data_type: "FLOAT64"
+
+      - name: totalworkinghours
+        description: "Total working hours of the vehicle."
+        data_type: "FLOAT64"
+
+      - name: enginerpm
+        description: "Engine RPM (revolutions per minute) of the vehicle."
+        data_type: "FLOAT64"
+
+      - name: outdoortempc
+        description: "Outdoor temperature in Celsius."
+        data_type: "FLOAT64"
+    meta:
+      tags: ["telemetry", "gps tracking", "farm machine", "telematics"]
