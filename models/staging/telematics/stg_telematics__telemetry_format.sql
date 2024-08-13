@@ -7,4 +7,4 @@ select
     totalworkinghours,
     engine_rpm as enginerpm,
     tempambient_c as outdoortempc
-from `farm-datapipeline.dbt_asarovic.stg_telematics__telemetry`
+from {{ source("telematics", "stg_telematics__telemetry") }}

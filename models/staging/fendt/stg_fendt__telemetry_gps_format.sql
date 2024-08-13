@@ -1,6 +1,6 @@
 select
     machineid as vehicleid,
-    TIMESTAMP_SECONDS(CAST(route.t AS INT64)) AS timestamp,
+    timestamp_seconds(cast(route.t as int64)) as timestamp,
     route.lng as gpslongitude,
     route.lat as gpslatitude
-from `farm-datapipeline.dbt_asarovic.stg_fendt__telemetry_gps`, unnest(route) as route
+from {{ source("fendt", "stg_fendt__telemetry_gps") }}, unnest(route) as route

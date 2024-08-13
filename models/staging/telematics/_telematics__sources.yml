@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: telematics 
+    database: farm-datapipeline
+    schema: dbt_asarovic
+    tables:
+      - name: stg_telematics__telemetry

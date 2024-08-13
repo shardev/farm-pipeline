@@ -13,7 +13,7 @@ with
             datas.type as type,
             cast(values.value as float64) as value
         from
-            `farm-datapipeline.dbt_asarovic.stg_fendt__telemetry`,
+            {{ source("fendt", "stg_fendt__telemetry") }},
             unnest(datas) as datas,
             unnest(datas.values) as
         values

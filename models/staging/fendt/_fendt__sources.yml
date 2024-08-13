@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: fendt 
+    database: farm-datapipeline
+    schema: dbt_asarovic
+    tables:
+      - name: stg_fendt__telemetry
+      - name: stg_fendt__telemetry_gps

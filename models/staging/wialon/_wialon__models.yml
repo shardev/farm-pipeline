@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: wialon_telemetry_data
+    description: "Telemetry data from Wialon (additional 3rd party telemetry system (totally independent of the integrated ones from the tractors brands)), including vehicle ID, GPS location, speed, and timestamp of the data recording."
+    columns:
+      - name: vehicleid
+        description: "Unique identifier for the vehicle, derived from the unit_id."
+        data_type: "INTEGER"
+
+      - name: timestamp
+        description: "Timestamp of the recorded telemetry data."
+        data_type: "TIMESTAMP"
+
+      - name: gpslongitude
+        description: "Longitude coordinate of the vehicle's location."
+        data_type: "FLOAT64"
+
+      - name: gpslatitude
+        description: "Latitude coordinate of the vehicle's location."
+        data_type: "FLOAT64"
+
+      - name: speedkmh
+        description: "Vehicle speed in kilometers per hour."
+        data_type: "FLOAT64"
+    meta:
+      tags: ["telemetry", "gps tracking", "farm machine", "wialon"]
