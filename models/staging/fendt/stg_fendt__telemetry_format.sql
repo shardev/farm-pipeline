@@ -1,8 +1,9 @@
 {% set types = [
-    {"type": "WheelBasedVehicleSpeed", "alias": "speedkmh"},
+    {"type": "WheelBasedVehicleSpeed", "alias": "speed_kmh"},
     {"type": "TOTAL_VEHICLE_HOURS", "alias": "totalworkinghours"},
-    {"type": "EngineSpeed", "alias": "enginerpm"},
-    {"type": "OutdoorTemp", "alias": "outdoortempc"},
+    {"type": "EngineSpeed", "alias": "engine_rpm"},
+    {"type": "OutdoorTemp", "alias": "outdoortemp_c"},
+    {"type": "FuelRate", "alias": "fuelconsumption_h"},
 ] %}
 
 with

@@ -3,5 +3,5 @@ select
     timestamp(datetime) as timestamp,
     gpslongitude as gpslongitude,
     gpslatitude as gpslatitude,
-    speed as speedkmh
+    speed as speed_kmh
 from {{ source("wialon", "stg_wialon__telemetry") }}

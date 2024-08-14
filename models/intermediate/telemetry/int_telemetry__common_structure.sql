@@ -3,10 +3,11 @@ select
     timestamp,
     gpslongitude,
     gpslatitude,
-    speedkmh,
+    speed_kmh,
     null as totalworkinghours,
-    null as enginerpm,
-    null as outdoortempc,
+    null as engine_rpm,
+    null as outdoortemp_c,
+    null as fuelconsumption_h,
     'wialon' as source
 from {{ ref("stg_wialon__telemetry_format") }}
 union all
@@ -15,10 +16,11 @@ select
     timestamp,
     gpslongitude,
     gpslatitude,
-    speedkmh,
+    speed_kmh,
     totalworkinghours,
-    enginerpm,
-    outdoortempc,
+    engine_rpm,
+    outdoortemp_c,
+    fuelconsumption_h,
     'telematics' as source
 from {{ ref("stg_telematics__telemetry_format") }}
 union all
@@ -27,9 +29,10 @@ select
     timestamp,
     gpslongitude,
     gpslatitude,
-    speedkmh,
+    speed_kmh,
     totalworkinghours,
-    enginerpm,
-    outdoortempc,
+    engine_rpm,
+    outdoortemp_c,
+    fuelconsumption_h,
     'fendt' as source
 from {{ ref("int_telemetry__fendt_joined") }}
