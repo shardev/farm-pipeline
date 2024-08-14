@@ -1,3 +1,5 @@
+{% set vehicle_run_delay_limit = 1000 %}
+
 with
     timestamps_diff as (
         select
@@ -12,9 +14,13 @@ with
     group_calc as (
         select
             *,
-            sum(case when time_diff_in_seconds > 1000 then 1 else 0 end) over (
-                partition by vehicleid order by timestamp
-            )
+            sum(
+                case
+                    when time_diff_in_seconds > {{ vehicle_run_delay_limit }}
+                    then 1
+                    else 0
+                end
+            ) over (partition by vehicleid order by timestamp)
             + 1 as run_number_for_machine
         from timestamps_diff
     ),
@@ -51,7 +57,7 @@ with
             sum(
                 (
                     case
-                        when time_diff_in_seconds > 1000
+                        when time_diff_in_seconds > {{ vehicle_run_delay_limit }}
                         then 0
                         else time_diff_in_seconds
                     end
@@ -63,7 +69,7 @@ with
             sum(
                 (
                     case
-                        when time_diff_in_seconds > 1000
+                        when time_diff_in_seconds > {{ vehicle_run_delay_limit }}
                         then 0
                         else time_diff_in_seconds
                     end
