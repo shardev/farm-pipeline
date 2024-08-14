@@ -15,8 +15,9 @@ with
         from
             {{ source("fendt", "stg_fendt__telemetry") }},
             unnest(datas) as datas,
-            unnest(datas.values) as
-        values
+            unnest(datas.values) as values
+        where
+            values.value is not null
     )
 select
     vehicleid,
