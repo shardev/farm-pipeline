@@ -3,10 +3,11 @@ select
     gps.timestamp,
     gps.gpslongitude,
     gps.gpslatitude,
-    telemetry.speedkmh,
+    telemetry.speed_kmh,
     telemetry.totalworkinghours,
-    telemetry.enginerpm,
-    telemetry.outdoortempc
+    telemetry.engine_rpm,
+    telemetry.outdoortemp_c,
+    telemetry.fuelconsumption_h
 from 
     {{ ref('stg_fendt__telemetry_gps_format') }} gps
 join
