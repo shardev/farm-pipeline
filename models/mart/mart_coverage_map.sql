@@ -30,6 +30,7 @@ select
     run_number_for_machine,
     timestart,
     timeend,
-    coveragemap
+    coveragemap,
+    st_asgeoJSON(coveragemap) AS geojson_coveragemap
 from convex_hull_per_vehicle_run 
 order by vehicleid, run_number_for_machine
