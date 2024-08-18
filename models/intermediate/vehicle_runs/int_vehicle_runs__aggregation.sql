@@ -1,4 +1,5 @@
 {% set vehicle_run_delay_limit = 1000 %}
+{% set seconds_in_hour = 3600 %}
 
 with
     timestamps_diff as (
@@ -14,6 +15,12 @@ with
     group_calc as (
         select
             *,
+            lead(gpslatitude) over (
+                partition by vehicleid order by timestamp
+            ) as next_latitude,
+            lead(gpslongitude) over (
+                partition by vehicleid order by timestamp
+            ) as next_longitude,
             sum(
                 case
                     when time_diff_in_seconds > {{ vehicle_run_delay_limit }}
@@ -55,17 +62,25 @@ with
             ) as run_point_end_lat,
 
             sum(
-                (
-                    case
-                        when time_diff_in_seconds > {{ vehicle_run_delay_limit }}
-                        then 0
-                        else time_diff_in_seconds
-                    end
-                    / 3600
+                -- Haversine formula with clamping to avoid floating point errors
+                6371000 * acos(
+                    greatest(
+                        least(
+                            cos(gpslatitude * acos(-1) / 180)
+                            * cos(next_latitude * acos(-1) / 180)
+                            * cos(
+                                next_longitude * acos(-1) / 180
+                                - gpslongitude * acos(-1) / 180
+                            )
+                            + sin(gpslatitude * acos(-1) / 180)
+                            * sin(next_latitude * acos(-1) / 180),
+                            1
+                        ),
+                        -1
+                    )
                 )
-                * speed_kmh
             ) over (partition by vehicleid, run_number_for_machine)
-            as distance_km_traveled,
+            * 0.001 as distance_km_traveled,
             sum(
                 (
                     case
@@ -73,7 +88,7 @@ with
                         then 0
                         else time_diff_in_seconds
                     end
-                    / 3600
+                    / {{ seconds_in_hour }}
                 )
                 * fuelconsumption_h
             ) over (partition by vehicleid, run_number_for_machine) as fuel_used_litres
