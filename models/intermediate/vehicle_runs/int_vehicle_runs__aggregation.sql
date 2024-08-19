@@ -1,4 +1,5 @@
 {% set vehicle_run_delay_limit = 1000 %}
+{% set vehicle_run_duration_limit = 300 %}
 {% set seconds_in_hour = 3600 %}
 
 with
@@ -111,3 +112,4 @@ select
     distance_km_traveled,
     fuel_used_litres
 from pre_point_created
+where timestamp_diff(runend, runstart, second) > {{ vehicle_run_duration_limit }}
